@@ -1,0 +1,1 @@
+export const LOAD_COTATION = 'LOAD_COTATION';
