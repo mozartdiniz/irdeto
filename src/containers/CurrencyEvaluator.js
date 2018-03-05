@@ -7,10 +7,12 @@ import Auth from '../hoc/Auth0/Auth0';
 
 import {
     getCotationThresholds,
-    filterByMax
+    filterByMax,
+    sortByDate
 } from '../utils/cotations';
 import OptionsList from '../components/OptionsList/OptionsList';
 import ResultTable from '../components/ResultTable/ResultTable';
+import RangeFilter from '../components/RangeFilter/RangeFilter';
 
 class CurrencyEvaluator extends Component {
     componentDidMount() {
@@ -30,10 +32,11 @@ class CurrencyEvaluator extends Component {
 
     render() {
         const cotationThresholds = getCotationThresholds(this.props.cotations);
-        const filteredCotations = filterByMax(this.props.cotations, this.props.selectedMaxCotation);
+        const filteredCotations = sortByDate(filterByMax(this.props.cotations, this.props.selectedMaxCotation));
 
         return(
             <div>
+                <h1>Cryptocurrency Threshold Evaluator</h1>
                 <OptionsList
                     items={this.props.currencies}
                     onChange={(e) => { this.props.selectCurrency(e); this.loadByCurrency(e); }}
@@ -45,16 +48,11 @@ class CurrencyEvaluator extends Component {
                     selecteItem={this.props.selectedTimeInterval}
                 />
 
-                Value range for the period
-                Min: {cotationThresholds.min}
-                <input
-                    type="range"
-                    min={cotationThresholds.min}
-                    max={cotationThresholds.max}
-                    step="any"
-                    onChange={this.props.selectMaxCotation}
+                <RangeFilter
+                    cotationThresholds={cotationThresholds}
+                    selectMaxCotation={this.props.selectMaxCotation}
                 />
-                Max: {cotationThresholds.max}
+
                 <ResultTable items={filteredCotations} />
             </div>
         );

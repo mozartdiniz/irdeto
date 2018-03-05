@@ -1,0 +1,32 @@
+.ResultTable {
+    width: 100%;
+    table-layout: fixed;
+    margin: 10px 0;
+    padding: 0;
+    box-sizing: content-box;
+    border: none;
+}
+
+.ResultTable tr:nth-child(odd) {
+    background-color: #212121;
+}
+
+.ResultTable tr td {
+    margin: 0;
+    padding: 5px 10px;
+    border: none;
+    text-align: right;
+}
+
+.ResultTable tr th {
+    background-color: #333333;
+    margin: 0;
+    padding: 10px;
+    border: none;
+    font-weight: 100;
+    text-align: right;
+}
+
+.ResultTable .TimeColumn {
+    width: 350px;
+}

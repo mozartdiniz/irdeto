@@ -1,0 +1,47 @@
+.OptionList {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px 20px 10px 0;
+  }
+
+.OptionList select {
+    background-color: #ffa212;
+    color: black;
+    font-size: inherit;
+    padding: .5em;
+    padding-right: 2.5em;
+    border: 0;
+    margin: 0;
+    border-radius: 3px;
+    text-indent: 0.01px;
+    text-overflow: '';
+    cursor: pointer;
+    -webkit-appearance: button;
+}
+
+.OptionList::before,
+.OptionList::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+}
+
+.OptionList::after {
+    content: "\25BC";
+    height: 1em;
+    font-size: .625em;
+    line-height: 1;
+    right: 1.2em;
+    top: 50%;
+    margin-top: -.5em;
+    color: #020202;
+}
+
+.OptionList::before {
+    width: 2em;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 0 3px 3px 0;
+}

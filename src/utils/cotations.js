@@ -5,6 +5,7 @@ export const getCotationThresholds = (cotations) => {
             min: 0,
         }
     }
+
     const sortedCotations = cotations.sort((a, b) => {
         if (a.high > b.high) {
             return -1;
@@ -26,6 +27,24 @@ export const getCotationThresholds = (cotations) => {
     }
 }
 
+export const sortByDate = (cotations) => {
+    if (!cotations || !cotations.length) {
+        return [];
+    }
+
+    return cotations.sort((a, b) => {
+        if (a.date > b.date) {
+            return -1;
+        }
+
+        if (a.date < b.date) {
+            return 1;
+        }
+
+        return 0;
+    });
+}
+
 export const filterByMax = (cotations, max) => {
     if (!cotations || !cotations.length) {
         return [];
@@ -35,3 +54,4 @@ export const filterByMax = (cotations, max) => {
         return cotatation.high > max;
     });
 }
+

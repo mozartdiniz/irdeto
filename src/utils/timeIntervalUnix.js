@@ -7,3 +7,5 @@ export const createTimeIntervalUnixStandard = (timeDifference) => {
         endTime: now,
     }
 }
+
+export const convertToDateTime = (date) => new Date(date * 1000).toString();
