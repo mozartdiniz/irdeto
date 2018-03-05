@@ -5,89 +5,57 @@ import * as actions from '../store/actions/index';
 
 import Auth from '../hoc/Auth0/Auth0';
 
-import { getCotationThresholds } from '../utils/cotations';
+import {
+    getCotationThresholds,
+    filterByMax
+} from '../utils/cotations';
 import OptionsList from '../components/OptionsList/OptionsList';
 import ResultTable from '../components/ResultTable/ResultTable';
 
 class CurrencyEvaluator extends Component {
-    currencies = [{
-        value: 'BTC_BCH',
-        text: 'Bitcoin Cash'
-    }, {
-        value: 'BTC_LSK',
-        text: 'Lisk'
-    }, {
-        value: 'BTC_ETH',
-        text: 'Etherium'
-    }, {
-        value: 'BTC_XMR',
-        text: 'Monero'
-    }, {
-        value: 'BTC_STRAT',
-        text: 'Stratis'
-    }];
-
-    timeInterval = [{
-        value: '86400',
-        text: 'Last 24 hours'
-    }, {
-        value: '172800',
-        text: 'Last 48 hours'
-    }, {
-        value: '259200',
-        text: 'Last 72 hours'
-    }];
-
-    state = {
-        selectedCurrency: this.currencies[0].value,
-        selectedTimeInterval: this.timeInterval[0].value,
-    }
-
     componentDidMount() {
         this.props.loadCotations(
-            this.state.selectedCurrency,
-            this.state.selectedTimeInterval
+            this.props.selectedCurrency,
+            this.props.selectedTimeInterval
         );
     }
 
-    selectCurrency = (e) => {
-        this.setState({
-            selectedCurrency: e.target.value,
-        });
-    }
-
-    selectTimeInterval = (e) => {
-        this.setState({
-            selectedTimeInterval: e.target.value,
-        });
-    }
-
     loadByCurrency = (e) => {
-        this.props.loadCotations(e.target.value, this.state.selectedTimeInterval);
+        this.props.loadCotations(e.target.value, this.props.selectedTimeInterval);
     }
 
     loadByTimeInterval = (e) => {
-        this.props.loadCotations(this.state.selectedCurrency, e.target.value);
+        this.props.loadCotations(this.props.selectedCurrency, e.target.value);
     }
 
     render() {
         const cotationThresholds = getCotationThresholds(this.props.cotations);
+        const filteredCotations = filterByMax(this.props.cotations, this.props.selectedMaxCotation);
+
         return(
             <div>
                 <OptionsList
-                    items={this.currencies}
-                    onChange={(e) => { this.selectCurrency(e); this.loadByCurrency(e); }}
-                    selecteItem={this.state.selectedCurrency}
+                    items={this.props.currencies}
+                    onChange={(e) => { this.props.selectCurrency(e); this.loadByCurrency(e); }}
+                    selecteItem={this.props.selectedCurrency}
                 />
                 <OptionsList
-                    items={this.timeInterval}
-                    onChange={(e) => { this.selectTimeInterval(e); this.loadByTimeInterval(e); }}
-                    selecteItem={this.state.selectedTimeInterval}
+                    items={this.props.timeInterval}
+                    onChange={(e) => { this.props.selectTimeInterval(e); this.loadByTimeInterval(e); }}
+                    selecteItem={this.props.selectedTimeInterval}
                 />
 
                 Value range for the period
-                Min: {cotationThresholds.min} <input type="range" min={cotationThresholds.min} max={cotationThresholds.max} step="0.00001" /> Max: {cotationThresholds.max}
-                <ResultTable items={this.props.cotations} />
+                Min: {cotationThresholds.min}
+                <input
+                    type="range"
+                    min={cotationThresholds.min}
+                    max={cotationThresholds.max}
+                    step="any"
+                    onChange={this.props.selectMaxCotation}
+                />
+                Max: {cotationThresholds.max}
+                <ResultTable items={filteredCotations} />
             </div>
         );
     }
@@ -96,12 +64,20 @@ class CurrencyEvaluator extends Component {
 const mapStateToProps = (state) => {
     return {
         cotations: state.cotations.list,
+        currencies: state.ui.currencies,
+        timeInterval: state.ui.timeInterval,
+        selectedCurrency: state.ui.selectedCurrency,
+        selectedTimeInterval: state.ui.selectedTimeInterval,
+        selectedMaxCotation: state.ui.selectedMaxCotation,
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         loadCotations: (currency, timeInterval) => dispatch(actions.loadCotation(currency, timeInterval)),
+        selectCurrency: (e) => dispatch(actions.selectCurrency(e.target.value)),
+        selectTimeInterval: (e) => dispatch(actions.selectTimeInterval(e.target.value)),
+        selectMaxCotation: (e) => dispatch(actions.selectMaxCotation(e.target.value)),
     }
 }
 

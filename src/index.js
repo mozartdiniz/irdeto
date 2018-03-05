@@ -11,11 +11,13 @@ import registerServiceWorker from './registerServiceWorker';
 
 // Reducers
 import cotations from './store/reducers/cotations';
+import ui from './store/reducers/ui';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     cotations,
+    ui,
 });
 
 const store = createStore(rootReducer, composeEnhancers(
