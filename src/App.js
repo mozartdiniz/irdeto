@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 
 import Layout from './hoc/Layout/Layout';
 import CurrencyEvaluator from './containers/CurrencyEvaluator';
-import Login from './containers/Login';
+import Login from './containers/Login/Login';
 import Auth0Callback from './components/Auth0Callback/Auth0Callback';
 
 import styles from './App.css';

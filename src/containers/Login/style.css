@@ -1,0 +1,25 @@
+.Login {
+    margin: auto;
+    padding: 20px;
+}
+
+.Login h1 {
+    text-align: center;
+}
+
+.Login button {
+    background: gray;
+    font-size: 18px;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    display: block;
+    margin: auto;
+    cursor: pointer;
+    font-weight: 100;
+}
+
+.Login button:hover {
+    background: #636262;
+}

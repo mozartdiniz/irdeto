@@ -1,7 +1,7 @@
 .Layout {
-    padding: 10px;
     position: relative;
     float: left;
+    width: 100%;
 }
 
 .Layout .UserInfo {

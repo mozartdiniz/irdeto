@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import LogoutButton from '../../components/LogoutButton/LogoutButton';
 import auth0 from '../Auth0/Auth0';
-import Login from '../../containers/Login';
+import Login from '../../containers/Login/Login';
 
 import styles from './style.css';
 
