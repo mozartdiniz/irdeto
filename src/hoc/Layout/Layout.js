@@ -7,12 +7,8 @@ import Login from '../../containers/Login/Login';
 import styles from './style.css';
 
 class Layout extends Component {
-    getUser = () => {
-
-    }
     render() {
         const { logout } = this.props;
-        this.getUser();
 
         return(
             <div className={styles.Layout}>
