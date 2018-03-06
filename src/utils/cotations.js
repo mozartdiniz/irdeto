@@ -6,7 +6,10 @@ export const getCotationThresholds = (cotations) => {
         }
     }
 
-    const sortedCotations = cotations.sort((a, b) => {
+    // Avoiding mutability
+    const insideCotations = [...cotations];
+
+    const sortedCotations = insideCotations.sort((a, b) => {
         if (a.high > b.high) {
             return -1;
         }
@@ -32,7 +35,10 @@ export const sortByDate = (cotations) => {
         return [];
     }
 
-    return cotations.sort((a, b) => {
+    // Avoiding mutability
+    const insideCotations = [...cotations];
+
+    return insideCotations.sort((a, b) => {
         if (a.date > b.date) {
             return -1;
         }

@@ -56,8 +56,8 @@ describe('Cotations', () => {
         const filteredCotations = filterByMax(cotations, 2);
 
         expect(filteredCotations.length).toBe(2);
-        expect(filteredCotations[0].high).toBe(5);
-        expect(filteredCotations[1].high).toBe(4);
+        expect(filteredCotations[0].high).toBe(4);
+        expect(filteredCotations[1].high).toBe(5);
 
         const filteredCotationsTwo = filterByMax(cotations, 4);
 
