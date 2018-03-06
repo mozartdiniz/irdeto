@@ -11,13 +11,9 @@ export const saveCotation = (cotations) => ({
 export const loadCotation = (currency, period) => {
     const timeInterval = createTimeIntervalUnixStandard(period);
 
-    return (dispatch) => {
-        fetch(`${URLs.poloniexAPI}?command=returnChartData&currencyPair=${currency}&start=${timeInterval.stateTime}&end=${timeInterval.endTime}&period=300`)
-        .then((response) => {
-          return response.json();
-        })
-        .then((cotations) => {
-            dispatch(saveCotation(cotations));
-        });
+    return async (dispatch) => {
+        const response = await fetch(`${URLs.poloniexAPI}?command=returnChartData&currencyPair=${currency}&start=${timeInterval.stateTime}&end=${timeInterval.endTime}&period=300`);
+
+        dispatch(saveCotation(await response.json()));
     }
 };
